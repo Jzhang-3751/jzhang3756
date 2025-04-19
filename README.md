@@ -1,16 +1,15 @@
 <!DOCTYPE html>
 <html lang="zh">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4096 - 8x8</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>4096 - 6x6 带虚拟按键</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
       background: #faf8ef;
       text-align: center;
       margin: 0;
-      padding: 0;
     }
     h1 {
       margin-top: 20px;
@@ -26,14 +25,14 @@
       margin: 10px auto;
     }
     .cell {
-      width: 60px;
-      height: 60px;
+      width: 70px;
+      height: 70px;
       background: #cdc1b4;
       display: flex;
       align-items: center;
       justify-content: center;
       font-weight: bold;
-      font-size: 20px;
+      font-size: 22px;
       border-radius: 6px;
       color: #776e65;
     }
@@ -44,6 +43,30 @@
       padding: 10px 20px;
       font-size: 16px;
       margin: 5px;
+    }
+    .arrows {
+      margin: 15px auto;
+      width: 220px;
+      display: grid;
+      grid-template-columns: repeat(3, 70px);
+      grid-template-rows: repeat(3, 70px);
+      gap: 5px;
+      justify-content: center;
+    }
+    .arrow-btn {
+      font-size: 24px;
+      border: none;
+      border-radius: 6px;
+      background: #8f7a66;
+      color: white;
+      cursor: pointer;
+    }
+    .arrow-btn:active {
+      background: #a08771;
+    }
+    .arrow-btn.empty {
+      background: transparent;
+      pointer-events: none;
     }
   </style>
 </head>
@@ -60,8 +83,20 @@
     <button onclick="startNew()">新局</button>
   </div>
 
+  <div class="arrows">
+    <div class="arrow-btn empty"></div>
+    <button class="arrow-btn" onclick="move('up')">↑</button>
+    <div class="arrow-btn empty"></div>
+    <button class="arrow-btn" onclick="move('left')">←</button>
+    <div class="arrow-btn empty"></div>
+    <button class="arrow-btn" onclick="move('right')">→</button>
+    <div class="arrow-btn empty"></div>
+    <button class="arrow-btn" onclick="move('down')">↓</button>
+    <div class="arrow-btn empty"></div>
+  </div>
+
   <script>
-    const SIZE = 8;
+    const SIZE = 6;
     let board = [];
     let prevBoard = [];
     let score = 0;
@@ -86,7 +121,7 @@
     function drawBoard() {
       const boardDiv = document.getElementById("board");
       boardDiv.innerHTML = "";
-      boardDiv.style.gridTemplateColumns = `repeat(${SIZE}, 60px)`;
+      boardDiv.style.gridTemplateColumns = `repeat(${SIZE}, 70px)`;
       board.forEach(row => {
         row.forEach(cell => {
           const cellDiv = document.createElement("div");
@@ -217,11 +252,11 @@
       let dx = e.changedTouches[0].clientX - startX;
       let dy = e.changedTouches[0].clientY - startY;
       if (Math.abs(dx) > Math.abs(dy)) {
-        if (dx > 30) move("right");
-        else if (dx < -30) move("left");
+        if (dx > 50) move("right");
+        else if (dx < -50) move("left");
       } else {
-        if (dy > 30) move("down");
-        else if (dy < -30) move("up");
+        if (dy > 50) move("down");
+        else if (dy < -50) move("up");
       }
     });
 

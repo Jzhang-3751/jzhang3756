@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>4096</title>
+  <title>4096 - 8x8</title>
   <style>
     body {
       font-family: 'Arial', sans-serif;
@@ -61,7 +61,7 @@
   </div>
 
   <script>
-    const SIZE = 10;
+    const SIZE = 8;
     let board = [];
     let prevBoard = [];
     let score = 0;
